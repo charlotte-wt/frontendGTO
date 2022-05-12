@@ -39,15 +39,15 @@ const Friend = ({ contacts, deleteContact }) => {
                     <td>{contact.email}</td>
                     <td>{contact.phone}</td>
                     <td>
-                      <Button
+                      {/* <Button
                         className='btns'
                         buttonStyle='btn--pink'
                         buttonSize='btn--middle'
-                        onClick={() => navigate(`/edit/${contact.id}`)}
+                        onClick={() => navigate(`/friends/edit/${contact.id}`)}
                         
                       >
                         Edit
-                      </Button>
+                      </Button> */}
                       <Button
                         className='btns'
                         buttonStyle='btn--pink'

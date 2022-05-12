@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
+import {Button} from "../Home/Button"; 
 
-function EditContact ({ contacts, updateContact }){
+const EditContact = ({ contacts, updateContact }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const currentContact = contacts.find(
@@ -57,13 +58,16 @@ function EditContact ({ contacts, updateContact }){
 
   return (
     <div className="container">
-      <div className="row d-flex flex-column">
-        <button
-          className="btn btn-dark ml-auto my-5"
-          onClick={() => navigate("/friends")}
-        >
-          Go back
-        </button>
+      <div className="edit-contact-row">
+        <Button
+            className='btns'
+            buttonStyle='btn--pink'
+            buttonSize='btn--middle'
+            onClick={() => navigate(`/friends`)}
+            
+          >
+            Go Back
+        </Button>
         <div className="col-md-6 mx-auto shadow p-5">
           {currentContact ? (
             <form onSubmit={handleSubmit}>
