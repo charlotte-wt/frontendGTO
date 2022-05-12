@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 function EditContact ({ contacts, updateContact }){
   const { id } = useParams();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const currentContact = contacts.find(
     (contact) => contact.id === parseInt(id)
   );
@@ -52,7 +52,7 @@ function EditContact ({ contacts, updateContact }){
 
     updateContact(data);
     toast.success("Contact updated successfully!!");
-    history.push("/");
+    navigate("/friends");
   };
 
   return (
@@ -60,7 +60,7 @@ function EditContact ({ contacts, updateContact }){
       <div className="row d-flex flex-column">
         <button
           className="btn btn-dark ml-auto my-5"
-          onClick={() => history.push("/")}
+          onClick={() => navigate("/friends")}
         >
           Go back
         </button>
@@ -98,7 +98,7 @@ function EditContact ({ contacts, updateContact }){
                 <button
                   type="button"
                   className="btn btn-danger"
-                  onClick={() => history.push("/")}
+                  onClick={() => navigate("/friends")}
                 >
                   cancel
                 </button>

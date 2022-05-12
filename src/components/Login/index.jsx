@@ -15,6 +15,7 @@ const BoxContainer = styled.div`
   box-shadow: 0 0 2px rgba(15, 15, 15, 0.28);
   position: relative;
   overflow: hidden;
+  
 `;
 
 const TopContainer = styled.div`
@@ -25,6 +26,7 @@ const TopContainer = styled.div`
   justify-content: flex-end;
   padding: 0 1.8em;
   padding-bottom: 2em;
+  
  
 `;
 

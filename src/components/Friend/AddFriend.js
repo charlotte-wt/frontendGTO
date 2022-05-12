@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import {Button} from "../Home/Button"; 
+
+import "./Friend.css"
+
 
 const AddFriend =({ contacts, addContact }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,16 +41,16 @@ const AddFriend =({ contacts, addContact }) => {
     };
 
     addContact(data);
-    toast.success("Contact added successfully!!");
-    history.push("/");
+    toast.success("Friend added successfully!!");
+    navigate("/friends");
   };
 
   return (
     <div className="container-fluid">
-      <h1 className="text-center text-dark py-3 display-2">Add Post</h1>
-      <div className="row">
+      <h1 className="title-addfriend">Add Friend</h1>
+      <div className="addfriend-row">
         <div className="col-md-6 p-5 mx-auto shadow">
-          <form onSubmit={handleSubmit}>
+          <form className = "form-start" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
                 className="form-control"
@@ -75,11 +79,15 @@ const AddFriend =({ contacts, addContact }) => {
               />
             </div>
             <div className="form-group">
-              <input
-                className="btn btn-block btn-dark"
-                type="submit"
-                value="Add Student"
-              />
+              <Button
+                  className='btns'
+                  buttonStyle='btn--addfriend'
+                  buttonSize='btn--middle'
+                  onClick={() => handleSubmit()}
+                  
+                >
+                  Add Friend
+              </Button>
             </div>
           </form>
         </div>

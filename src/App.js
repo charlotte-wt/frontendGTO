@@ -31,8 +31,8 @@ function App() {
             <Route element={<WithNav />}>
                 <Route exact path="/home" element={<Home/>} />
                 <Route exact path="/friends" element={<Friend/>} />
-                <Route exact path="/friends/add" component={() => <AddFriend />} />
-                <Route exact path="/friends/edit/:id" component={() => <EditContact />} />
+                <Route exact path="/friends/add" element={<AddFriend />} />
+                <Route exact path="/friends/edit/:id" element={<EditContact />} />
             </Route>
             <Route element={<WithoutNav />}>
                 <Route

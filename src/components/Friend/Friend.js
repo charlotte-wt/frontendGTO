@@ -1,15 +1,26 @@
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Button } from '../Home/Button';
+import "./Friend.css";
+
 
 const Friend = ({ contacts, deleteContact }) => {
+
+  const navigate = useNavigate();
   return (
-    <div className="container">
-      <div className="row d-flex flex-column">
-        <Link to="/add" className="btn btn-outline-dark my-5 ml-auto ">
-          Add Contact
-        </Link>
+    
+    <div className="friend-container">
+      <div className="friend-row">
+        <Button
+          className='btns'
+          buttonStyle='btn--addfriend'
+          buttonSize='btn--large'
+          onClick={() => navigate("/friends/add")}
+        >
+          Add Friend
+        </Button>
         <div className="col-md-10 mx-auto my-4">
-          <table className="table table-hover">
+          <table className="table">
             <thead className="table-header bg-dark text-white">
               <tr>
                 <th scope="col">Id</th>
@@ -28,25 +39,30 @@ const Friend = ({ contacts, deleteContact }) => {
                     <td>{contact.email}</td>
                     <td>{contact.phone}</td>
                     <td>
-                      <Link
-                        to={`/edit/${contact.id}`}
-                        className="btn btn-sm btn-primary mr-1"
+                      <Button
+                        className='btns'
+                        buttonStyle='btn--pink'
+                        buttonSize='btn--middle'
+                        onClick={() => navigate(`/edit/${contact.id}`)}
+                        
                       >
                         Edit
-                      </Link>
-                      <button
-                        type="button"
+                      </Button>
+                      <Button
+                        className='btns'
+                        buttonStyle='btn--pink'
+                        buttonSize='btn--middle'
                         onClick={() => deleteContact(contact.id)}
-                        className="btn btn-sm btn-danger"
+                        
                       >
                         Delete
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <th>No contacts found</th>
+                  <td>No contacts found</td>
                 </tr>
               )}
             </tbody>
@@ -54,6 +70,7 @@ const Friend = ({ contacts, deleteContact }) => {
         </div>
       </div>
     </div>
+    
   );
 };
 
