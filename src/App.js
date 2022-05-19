@@ -11,7 +11,8 @@ import WithoutNav from "./components/NavBar/WithoutNav"
 import Friend from "./components/Friend/Friend";
 import AddFriend from "./components/Friend/AddFriend";
 import EditContact from "./components/Friend/EditContact";
-
+import Event from "./components/Event/Event";
+import Content from "./components/Content/Content";
 
 function App() {
 
@@ -33,6 +34,12 @@ function App() {
                 <Route exact path="/friends" element={<Friend/>} />
                 <Route exact path="/friends/add" element={<AddFriend />} />
                 <Route exact path="/friends/edit/:id" element={<EditContact />} />
+                <Route exact path="/events" element={<Event />} />
+                <Route path="/content/technology" element={<Content />} />
+                <Route path="/content/accountancy" element={<Content />} />
+                <Route path="/content/startup" element={<Content />} />
+                <Route path="/content/investmentbanking" element={<Content />} />
+                <Route path="/content/engineering" element={<Content />} />
             </Route>
             <Route element={<WithoutNav />}>
                 <Route
