@@ -1,0 +1,55 @@
+.friend-container {
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
+    height: 70vw;
+    display: flex;
+    justify-content: center;
+
+}
+
+.addfriend-row {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    margin-top: 50px;
+
+  }
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: pink;
+}
+
+tr:hover {
+    background-color: #FFDCD1;
+}
+
+
+
+/* AddFriend.js */
+.container-fluid {
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
+    height: 70vw;
+    justify-content: center;
+}
+
+.title-addfriend {
+    margin-top: 0;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.form-start {
+    margin-top:5vw;
+}
