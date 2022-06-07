@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import {
-  BoldLink,
+  BoldLink,  
   BoxContainer,
   FormContainer,
   Input,
@@ -8,6 +8,7 @@ import {
   SubmitButton,
 } from "./common";
 import { Marginer } from "../marginer";
+import {Link} from "react-router-dom";
 import { AccountContext } from "./accountContext";
 
 export function SignupForm(props) {
@@ -21,7 +22,7 @@ export function SignupForm(props) {
         <Input type="email" placeholder="Email" />
         <Input type="text" placeholder="(Optional) Phone Number"/>
         <Input type="password" placeholder="Password" />
-        <Input type="password" placeholder="Confirm Password" />
+        {/* <Input type="password" placeholder="Confirm Password" /> */}
       </FormContainer>
       <Marginer direction="vertical" margin={40} />
       <SubmitButton type="submit" style={{marginBottom: 10}}>Sign Up</SubmitButton>

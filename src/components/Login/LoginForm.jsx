@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import {
-  BoldLink,
+BoldLink,
   BoxContainer,
   FormContainer,
   Input,
   MutedLink,
   SubmitButton,
 } from "./common";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link, Navigate} from "react-router-dom";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 import "./LoginForm.css";
@@ -28,7 +28,7 @@ export function LoginForm(props) {
         <Marginer direction="vertical" margin="1.6em" />
         <SubmitButton type = "submit" onClick={() => navigate("/home")} >Sign In</SubmitButton>
         <Marginer direction="vertical" margin="1em" />
-        <MutedLink href="#">
+        <MutedLink href="/signup">
             Yet to join us?{" "}
             <BoldLink href="#" onClick={switchToSignup}>
             Sign up now!

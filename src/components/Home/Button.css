@@ -24,6 +24,14 @@
     margin-top: 15px;
   }
 
+  .btn--addevent {
+    background-color: pink;
+    color: #242424;
+    border: 1px solid black;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
   .btn--pink {
     background-color: pink;
     color: #242424;
