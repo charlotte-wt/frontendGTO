@@ -1,14 +1,7 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
-
+import AuthService from "../services/auth.service";
 const Profile = () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
-
-  if (!currentUser) {
-    return <Link to="/login" />;
-  }
-
+  const currentUser = AuthService.getCurrentUser();
   return (
     <div className="container">
       <header className="jumbotron">
@@ -34,5 +27,4 @@ const Profile = () => {
     </div>
   );
 };
-
 export default Profile;

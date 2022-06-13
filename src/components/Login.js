@@ -1,12 +1,10 @@
 import React, { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import { login } from "../actions/auth";
+import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
@@ -18,18 +16,16 @@ const required = (value) => {
   }
 };
 
-const Login = (props) => {
+const Login = () => {
+  let navigate = useNavigate();
+
   const form = useRef();
   const checkBtn = useRef();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { message } = useSelector(state => state.message);
-
-  const dispatch = useDispatch();
+  const [message, setMessage] = useState("");
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -44,27 +40,33 @@ const Login = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
 
+    setMessage("");
     setLoading(true);
 
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(login(username, password))
-        .then(() => {
-          props.history.push("/profile");
+      AuthService.login(username, password).then(
+        () => {
+          navigate("/profile");
           window.location.reload();
-        })
-        .catch(() => {
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
           setLoading(false);
-        });
+          setMessage(resMessage);
+        }
+      );
     } else {
       setLoading(false);
     }
   };
-
-  if (isLoggedIn) {
-    return <Link to="/profile" />;
-  }
 
   return (
     <div className="col-md-12">
