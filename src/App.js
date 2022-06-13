@@ -57,15 +57,10 @@ function App() {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <Link to={"/"} className="navbar-brand">
-          bezKoder
+        <Link to={"/login"} className="navbar-brand">
+          GIRLSTIMEONLINE
         </Link>
         <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
-              Home
-            </Link>
-          </li>
 
           {showModeratorBoard && (
             <li className="nav-item">
@@ -124,16 +119,39 @@ function App() {
 
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/profile" element={<Profile/>} />
+        
           {/* <Route path="/user" element={<BoardUser/>} />
           <Route path="/mod" element={<BoardModerator/>} />
           <Route path="/admin" element={<BoardAdmin/>} /> */}
+
+          <Route element={<WithNav />}>
+                <Route path="/" element={<Home/>} />
+                <Route exact path="/home" element={<Home/>} />
+                <Route exact path="/friends" element={<Friend/>} />
+                <Route exact path="/friends/add" element={<AddFriend />} />
+                <Route exact path="/events" element={<Event />} />
+                <Route exact path="/events/add" element={<AddEvent />} />
+                <Route exact path="/events/edit/:id" element={<EditEvent />} />
+                <Route path="/content/technology" element={<Content />} />
+                <Route path="/content/accountancy" element={<Content />} />
+                <Route path="/content/startup" element={<Content />} />
+                <Route path="/content/investmentbanking" element={<Content />} />
+                <Route path="/content/engineering" element={<Content />} />
+            </Route>
+            <Route element={<WithoutNav />}>
+                <Route
+                    path="/"
+                    element={<Navigate to="/login" replace />}
+                />
+                    <Route exact path="/login" element={<Login/>} /> 
+                    <Route path="/login" element={<Login/>} />
+                    <Route path="/register" element={<Register/>} />
+                    <Route path="/profile" element={<Profile/>} />
+            </Route>
           
         </Routes>
+
+       
       </div>
 
     </div>
