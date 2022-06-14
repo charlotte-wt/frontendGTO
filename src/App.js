@@ -22,10 +22,11 @@ import Content from "./components/Content/Content";
 import { history } from "./helpers/History";
 import AuthService from './services/auth.service';
 import EventBus from "./common/EventBus";
+import BoardUser from "./components/BoardUser";
 
 function App() {
 
-    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
@@ -57,10 +58,16 @@ function App() {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <Link to={"/login"} className="navbar-brand">
+        <Link to={"/home"} className="navbar-brand">
           GIRLSTIMEONLINE
         </Link>
         <div className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link to={"/home"} className="nav-link">
+                Home
+              </Link>
+            </li>
+
 
           {showModeratorBoard && (
             <li className="nav-item">
@@ -84,6 +91,16 @@ function App() {
                 User
               </Link>
             </li>
+            
+          )}
+
+          {currentUser && (
+             <li className="nav-item">
+             <Link to={"/events"} className="nav-link">
+               Events
+             </Link>
+           </li>
+            
           )}
         </div>
 
@@ -92,6 +109,11 @@ function App() {
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
                 {currentUser.username}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/friends"} className="nav-link">
+                Friends
               </Link>
             </li>
             <li className="nav-item">
@@ -117,42 +139,29 @@ function App() {
         )}
       </nav>
 
-      <div className="container mt-3">
         <Routes>
-        
-          {/* <Route path="/user" element={<BoardUser/>} />
-          <Route path="/mod" element={<BoardModerator/>} />
+          <Route path="/user" element={<BoardUser/>} />
+          {/* <Route path="/mod" element={<BoardModerator/>} />
           <Route path="/admin" element={<BoardAdmin/>} /> */}
 
-          <Route element={<WithNav />}>
-                <Route path="/" element={<Home/>} />
-                <Route exact path="/home" element={<Home/>} />
-                <Route exact path="/friends" element={<Friend/>} />
-                <Route exact path="/friends/add" element={<AddFriend />} />
-                <Route exact path="/events" element={<Event />} />
-                <Route exact path="/events/add" element={<AddEvent />} />
-                <Route exact path="/events/edit/:id" element={<EditEvent />} />
-                <Route path="/content/technology" element={<Content />} />
-                <Route path="/content/accountancy" element={<Content />} />
-                <Route path="/content/startup" element={<Content />} />
-                <Route path="/content/investmentbanking" element={<Content />} />
-                <Route path="/content/engineering" element={<Content />} />
-            </Route>
-            <Route element={<WithoutNav />}>
-                <Route
-                    path="/"
-                    element={<Navigate to="/login" replace />}
-                />
-                    <Route exact path="/login" element={<Login/>} /> 
-                    <Route path="/login" element={<Login/>} />
-                    <Route path="/register" element={<Register/>} />
-                    <Route path="/profile" element={<Profile/>} />
-            </Route>
-          
-        </Routes>
 
-       
-      </div>
+            <Route path="/" element={<Home/>} />
+            <Route exact path ="/login" element = {<Login/>}/>
+            <Route exact path ="/register" element = {<Register/>}/>
+            <Route exact path ="/profile" element = {<Profile/>}/>
+            <Route exact path="/home" element={<Home/>} />
+            <Route exact path="/friends" element={<Friend/>} />
+            <Route exact path="/friends/add" element={<AddFriend />} />
+            <Route exact path="/events" element={<Event />} />
+            <Route exact path="/events/add" element={<AddEvent />} />
+            <Route exact path="/events/edit/:id" element={<EditEvent />} />
+            <Route path="/content/technology" element={<Content />} />
+            <Route path="/content/accountancy" element={<Content />} />
+            <Route path="/content/startup" element={<Content />} />
+            <Route path="/content/investmentbanking" element={<Content />} />
+            <Route path="/content/engineering" element={<Content />} />         
+        </Routes>
+     
 
     </div>
     );
