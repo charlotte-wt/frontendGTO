@@ -26,8 +26,7 @@ const Friend = ({ contacts, deleteContact }) => {
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col"></th>
+                <th scope="col"> </th>
               </tr>
             </thead>
             <tbody>
@@ -37,7 +36,6 @@ const Friend = ({ contacts, deleteContact }) => {
                     <td>{id + 1}</td>
                     <td>{contact.name}</td>
                     <td>{contact.email}</td>
-                    <td>{contact.phone}</td>
                     <td>
                       <Button
                         className='btns'
