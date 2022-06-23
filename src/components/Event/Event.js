@@ -6,9 +6,9 @@ import {Button} from "../Home/Button";
 import "./Event.css";
 
 
-const Event = (events, deleteEvent) => {
-
-    const navigate = useNavigate();
+const Event = ({events, deleteEvent}) => {
+  
+  const navigate = useNavigate();
 
   return (
    
@@ -27,8 +27,9 @@ const Event = (events, deleteEvent) => {
             <thead className="table-header bg-dark text-white">
               <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Event Name</th>
+                <th scope="col">Host Name</th>
                 <th scope="col">Host Email</th>
+                <th scope="col">Event Title</th>
                 <th scope="col">Description</th>
                 <th scope="col"></th>
               </tr>
@@ -38,12 +39,13 @@ const Event = (events, deleteEvent) => {
                 events.map((event, id) => (
                   <tr key={id}>
                     <td>{id + 1}</td>
-                    <td>{event.name}</td>
+                    <td>{event.username}</td>
                     <td>{event.email}</td>
+                    <td>{event.title}</td>
                     <td>{event.description}</td>
                     <td>
                     <Link
-                        to={`/edit/${event.id}`}
+                        to={`edit/${event.id}`}
                         className="btn btn-sm btn-primary mr-1"
                       >
                         Edit
@@ -75,14 +77,15 @@ const Event = (events, deleteEvent) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-    events: state,
+const mapEventStateToProps = (eventState) => ({
+    events: eventState.eventR,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapEventDispatchToProps = (dispatch) => ({
     deleteEvent: (id) => {
         dispatch({ type: "DELETE_EVENT", payload: id });
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Event);
+
+export default connect(mapEventStateToProps, mapEventDispatchToProps)(Event);
