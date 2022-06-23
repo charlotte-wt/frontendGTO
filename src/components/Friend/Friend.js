@@ -1,3 +1,4 @@
+import React from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from '../Home/Button';
@@ -64,7 +65,7 @@ const Friend = ({ contacts, deleteContact }) => {
 };
 
 const mapStateToProps = (state) => ({
-  contacts: state,
+  contacts: state.friendR,
 });
 
 const mapDispatchToProps = (dispatch) => ({
