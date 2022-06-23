@@ -10,6 +10,7 @@ import {Button} from "../Home/Button";
 const AddEvent =({ events, addEvent }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const AddEvent =({ events, addEvent }) => {
       id: events.length > 0 ? events[events.length - 1].id + 1 : 0,
       email,
       name,
+      title,
       description,
     };
 
@@ -52,7 +54,7 @@ const AddEvent =({ events, addEvent }) => {
               <input
                 className="form-control"
                 type="text"
-                placeholder="Event Name"
+                placeholder="Host Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -64,6 +66,15 @@ const AddEvent =({ events, addEvent }) => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Event Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="form-group">
