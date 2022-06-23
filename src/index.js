@@ -6,22 +6,25 @@ import reportWebVitals from './reportWebVitals';
 
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { contactReducer } from "./components/Friend/contactReducer";
+import rootReducer from "./reducers/rootReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
-const store = createStore(contactReducer, composeWithDevTools());
+// const store1Context = React.createContext();
+// const store2Context = React.createContext();
+const store = createStore(rootReducer, composeWithDevTools());
+// const store2 = createStore(eventReducer, composeWithDevTools());
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const rootElement = document.getElementById("root");
 
 
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-    <App />
-    </BrowserRouter>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
   </Provider>,
   rootElement
 );
