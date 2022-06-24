@@ -12,13 +12,15 @@ const EditEvent = ({ events, updateEvent }) => {
   );
 
   useEffect(() => {
-    setName(currentEvent.name);
+    setName(currentEvent.username);
     setEmail(currentEvent.email);
+    setTitle(currentEvent.title);
     setDescription(currentEvent.description);
   }, [currentEvent]);
 
-  const [name, setName] = useState("");
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
@@ -37,7 +39,7 @@ const EditEvent = ({ events, updateEvent }) => {
     //   ? event : null
     // );
 
-    if (!email || !name || !description) {
+    if (!email || !username || !description) {
       return toast.warning("Please fill in all fields!!");
     }
     // if (checkEventUserExists.length > 0 && checkEventNameExists.length > 0) {
@@ -51,7 +53,7 @@ const EditEvent = ({ events, updateEvent }) => {
     const data = {
       id: currentEvent.id,
       email,
-      name,
+      username,
       description,
     };
 
@@ -61,25 +63,16 @@ const EditEvent = ({ events, updateEvent }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="edit-event-row">
-        <Button
-            className='btns'
-            buttonStyle='btn--pink'
-            buttonSize='btn--middle'
-            onClick={() => navigate(`/events`)}
-            
-          >
-            Go Back
-        </Button>
         <div className="col-md-6 mx-auto shadow p-5">
           {currentEvent ? (
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <input
                   className="form-control"
-                  value={name}
-                  placeholder={"Event Name"}
+                  value={username}
+                  placeholder={"Host Name"}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -89,6 +82,14 @@ const EditEvent = ({ events, updateEvent }) => {
                   value={email}
                   placeholder={"Host Email"}
                   onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  value={title}
+                  placeholder={"Title"}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -121,8 +122,8 @@ const EditEvent = ({ events, updateEvent }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  events: state,
+const mapStateToProps = (eventState) => ({
+  events: eventState.eventR,
 });
 const mapDispatchToProps = (dispatch) => ({
   updateEvent: (data) => {

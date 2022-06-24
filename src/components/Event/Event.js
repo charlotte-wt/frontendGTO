@@ -32,6 +32,7 @@ const Event = ({events, deleteEvent}) => {
                 <th scope="col">Event Title</th>
                 <th scope="col">Description</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -44,12 +45,17 @@ const Event = ({events, deleteEvent}) => {
                     <td>{event.title}</td>
                     <td>{event.description}</td>
                     <td>
-                    <Link
-                        to={`edit/${event.id}`}
-                        className="btn btn-sm btn-primary mr-1"
+                    <Button
+                        className='btns'
+                        buttonStyle='btn--pink'
+                        buttonSize='btn--middle'
+                        onClick={() => navigate(`/events/edit/${event.id}`)}
+                        
                       >
                         Edit
-                      </Link>                        
+                      </Button>  
+                      </td>
+                      <td>                    
                       <Button
                         className='btns'
                         buttonStyle='btn--pink'

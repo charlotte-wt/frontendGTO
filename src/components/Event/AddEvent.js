@@ -46,7 +46,9 @@ const AddEvent =({ events, addEvent }) => {
 
   return (
     <div className="container-fluid">
+      <br></br>
       <h1 className="title-addevent">Add Event</h1>
+      <br></br>
       <div className="addevent-row">
         <div className="col-md-6 p-5 mx-auto shadow">
           <form className = "form-start" onSubmit={handleSubmit}>
@@ -86,7 +88,7 @@ const AddEvent =({ events, addEvent }) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group d-flex align-items-center justify-content-between my-2">
               <Button
                   className='btns'
                   buttonStyle='btn--addevent'
@@ -95,6 +97,15 @@ const AddEvent =({ events, addEvent }) => {
                   
                 >
                   Add Event
+              </Button>
+              <Button
+              className='btns'
+              buttonStyle='btn--pink'
+              buttonSize='btn--middle'
+              onClick={() => navigate(`/events`)}
+              
+              >
+              Go Back
               </Button>
             </div>
           </form>
