@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createEvent } from "../../actions/events";
+import { useNavigate } from "react-router-dom";
+import {Button} from "../Home/Button";
 import "./Event.css";
 
 const AddEvent = () => {
@@ -16,6 +18,7 @@ const AddEvent = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = event_change => {
     const { name, value } = event_change.target;
@@ -29,11 +32,11 @@ const AddEvent = () => {
 
     dispatch(createEvent(username, email, title, description))
       .then(data => {
-       
+
         setEvent({
           id: data.id,
-          username:data.username,
-          email:data.email,
+          username: data.username,
+          email: data.email,
           title: data.title,
           description: data.description,
           published: data.published
@@ -53,72 +56,99 @@ const AddEvent = () => {
   };
 
   return (
+
     <div className="submit-form">
       {submitted ? (
-        <div>
+        <div className = "container-fluid">
           <h4>You submitted successfully!</h4>
           <button className="btn btn-success" onClick={newEvent}>
-            Add
+            Add More Events
           </button>
         </div>
       ) : (
         <div>
+          <div className="container-fluid">
+            <br></br>
+            <h1 className="title-addevent">Add Event</h1>
+            <br></br>
+            <div className="addevent-row">
+              <div className="col-md-6 p-5 mx-auto shadow">
+           
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      id="username"
+                      required
+                      type="text"
+                      placeholder="Host Name"
+                      name = "username"
+                      value={event.username}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      type="email"
+                      id="email"
+                      required
+                      placeholder="Email"
+                      name = "email"
+                      value={event.email}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      type="text"
+                      id="title"
+                      required
+                      placeholder="Event Title"
+                      name = "title"
+                      value={event.title}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      type="text"
+                      id="description"
+                      required
+                      placeholder="Description"
+                      name = "description"
+                      value={event.description}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-group d-flex align-items-center justify-content-between my-2">
+                    <Button
+                      className='btn btn-success'
+                      buttonStyle='btn--addevent'
+                      buttonSize='btn--middle'
+                      onClick={saveEvent}
+
+                    >
+                      Add Event
+                    </Button>
+                    <Button
+                      className='btns'
+                      buttonStyle='btn--pink'
+                      buttonSize='btn--middle'
+                      onClick={() => navigate(`/events`)}
+
+                    >
+                      Go Back
+                    </Button>
+                  </div>
+               
+              </div>
+            </div>
+          </div>
+
           
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              required
-              value={event.username}
-              onChange={handleInputChange}
-              name="username"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Host Email</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              required
-              value={event.email}
-              onChange={handleInputChange}
-              name="email"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              className="form-control"
-              id="title"
-              required
-              value={event.title}
-              onChange={handleInputChange}
-              name="title"
-            />
-          </div>
-
-
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              className="form-control"
-              id="description"
-              required
-              value={event.description}
-              onChange={handleInputChange}
-              name="description"
-            />
-          </div>
-
-          <button onClick={saveEvent} className="btn btn-success">
-            Submit
-          </button>
+         
         </div>
       )}
     </div>

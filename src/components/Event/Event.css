@@ -21,9 +21,15 @@ th {
     background-color: pink;
 }
 
-.group:hover {
-    background-color: #FFDCD1;
+.list-group-item:hover {
+    background-color: rgb(255, 182, 193);
 }  
+
+.list-group-item.active {
+    background-color: rgb(255, 182, 193);
+    border-color:rgb(255, 182, 193);
+    color: #212529;
+}
 
 
 

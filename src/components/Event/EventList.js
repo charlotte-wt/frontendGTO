@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
     retrieveEvents,
     findEventsByTitle,
@@ -7,6 +8,7 @@ import {
 } from "../../actions/events";
 import { Link } from "react-router-dom";
 import "./Event.css";
+import {Button} from "../Home/Button";
 
 const EventsList = () => {
     const [currentEvent, setCurrentEvent] = useState(null);
@@ -14,6 +16,7 @@ const EventsList = () => {
     const [searchTitle, setSearchTitle] = useState("");
 
     const events = useSelector(state => state.eventR);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -92,12 +95,15 @@ const EventsList = () => {
                             ))}
                     </ul>
 
-                    <button
-                        className="m-3 btn btn-sm btn-danger"
-                        onClick={removeAllEvents}
+                    <Button
+                      className='btn btn-success'
+                      buttonStyle='btn--addevent'
+                      buttonSize='btn--middle'
+                      onClick={() => navigate("add")}
+
                     >
-                        Remove All
-                    </button>
+                      Add Event
+                    </Button>
                 </div>
                 <div className="col-md-6">
                     {currentEvent ? (
