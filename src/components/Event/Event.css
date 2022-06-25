@@ -1,4 +1,4 @@
-.event-container {
+/* .event-container {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
     height: 70vw;
     display: flex;
@@ -28,12 +28,12 @@ th {
 
 tr:hover {
     background-color: #FFDCD1;
-}
+} */
 
 
 
 /* AddEvent.js */
-.container-fluid {
+/* .container-fluid {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
     height: 70vw;
     justify-content: center;
@@ -52,4 +52,4 @@ tr:hover {
 
 .form-start {
     margin-top:5vw;
-}
+} */

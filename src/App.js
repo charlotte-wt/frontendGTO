@@ -15,6 +15,7 @@ import WithoutNav from "./components/NavBar/WithoutNav"
 import Friend from "./components/Friend/Friend";
 import AddFriend from "./components/Friend/AddFriend";
 import Event from "./components/Event/Event";
+import EventList from "./components/Event/EventList";
 import AddEvent from "./components/Event/AddEvent";
 import EditEvent from "./components/Event/EditEvent";
 import Content from "./components/Content/Content";
@@ -152,7 +153,7 @@ function App() {
             <Route exact path="/home" element={<Home/>} />
             <Route exact path="/friends" element={<Friend/>} />
             <Route exact path="/friends/add" element={<AddFriend />} />
-            <Route exact path="/events" element={<Event />} />
+            <Route exact path="/events" element={<EventList />} />
             <Route exact path="/events/add" element={<AddEvent />} />
             <Route exact path="/events/edit/:id" element={<EditEvent />} />
             <Route path="/content/technology" element={<Content />} />

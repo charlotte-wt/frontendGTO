@@ -11,10 +11,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
+import store from './store/store'
 
 // const store1Context = React.createContext();
 // const store2Context = React.createContext();
-const store = createStore(rootReducer, composeWithDevTools());
+// const store = createStore(rootReducer, composeWithDevTools());
 // const store2 = createStore(eventReducer, composeWithDevTools());
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const rootElement = document.getElementById("root");

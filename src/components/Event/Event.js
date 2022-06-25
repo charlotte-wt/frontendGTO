@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateEvent, deleteEvent } from "../actions/events";
-import EventDataService from "../services/EventService";
+import { useParams } from 'react-router-dom';
+import { updateEvent, deleteEvent } from "../../actions/events";
+import EventDataService from "../../services/eventService";
 
 const Event = (props) => {
   const initialEventState = {
@@ -16,6 +17,7 @@ const Event = (props) => {
   const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
+  let {event_id} = useParams();
 
   const getEvent = id => {
     EventDataService.get(id)
@@ -29,19 +31,19 @@ const Event = (props) => {
   };
 
   useEffect(() => {
-    getEvent(props.match.params.id);
-  }, [props.match.params.id]);
+    getEvent(event_id);
+  }, [event_id]);
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
+  const handleInputChange = event_change => {
+    const { name, value } = event_change.target;
     setCurrentEvent({ ...currentEvent, [name]: value });
   };
 
   const updateStatus = status => {
     const data = {
       id: currentEvent.id,
-      username: "",
-      email: "", 
+      username: currentEvent.username,
+      email: currentEvent.email, 
       title: currentEvent.title,
       description: currentEvent.description,
       published: status

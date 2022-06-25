@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createEvent } from "../actions/events";
+import { createEvent } from "../../actions/events";
 
 const AddEvent = () => {
   const initialEventState = {
@@ -16,18 +16,23 @@ const AddEvent = () => {
 
   const dispatch = useDispatch();
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
+  const handleInputChange = event_change => {
+    const { name, value } = event_change.target;
+    // console.log({ ...event, [name]: value });
     setEvent({ ...event, [name]: value });
   };
 
   const saveEvent = () => {
     const { username, email, title, description } = event;
 
+
     dispatch(createEvent(username, email, title, description))
       .then(data => {
+       
         setEvent({
           id: data.id,
+          username:data.username,
+          email:data.email,
           title: data.title,
           description: data.description,
           published: data.published
@@ -57,6 +62,32 @@ const AddEvent = () => {
         </div>
       ) : (
         <div>
+          
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              required
+              value={event.username}
+              onChange={handleInputChange}
+              name="username"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Host Email</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              required
+              value={event.email}
+              onChange={handleInputChange}
+              name="email"
+            />
+          </div>
+
           <div className="form-group">
             <label htmlFor="title">Title</label>
             <input
@@ -69,6 +100,7 @@ const AddEvent = () => {
               name="title"
             />
           </div>
+
 
           <div className="form-group">
             <label htmlFor="description">Description</label>

@@ -1,15 +1,16 @@
 import {
-    ADD_EVENT,
+    ADD_EVENTS,
     GET_EVENT,
     UPDATE_EVENT,
     DELETE_EVENT,
+    DELETE_ALL_EVENTS
   } from "./type";
   import EventDataService from "../services/eventService";
   export const createEvent = (username, email, title, description) => async (dispatch) => {
     try {
       const res = await EventDataService.create({ username, email, title, description });
       dispatch({
-        type: ADD_EVENT,
+        type: ADD_EVENTS,
         payload: res.data,
       });
       return Promise.resolve(res.data);
@@ -49,6 +50,20 @@ import {
       });
     } catch (err) {
       console.log(err);
+    }
+  };
+  export const deleteAllEvents = () => async (dispatch) => {
+    try {
+      const res = await EventDataService.removeAll();
+  
+      dispatch({
+        type: DELETE_ALL_EVENTS,
+        payload: res.data,
+      });
+  
+      return Promise.resolve(res.data);
+    } catch (err) {
+      return Promise.reject(err);
     }
   };
  

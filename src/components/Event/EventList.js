@@ -12,7 +12,7 @@ const EventsList = () => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
 
-  const events = useSelector(state => state.events);
+  const events = useSelector(state => state.eventR);
   const dispatch = useDispatch();
 
   useEffect(() => {
