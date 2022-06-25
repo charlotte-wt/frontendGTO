@@ -1,28 +1,30 @@
 
-import http from "../http-common";
+import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080/api";
 
+
 const getAll = () => {
-    return http.get("/events")   
+    return axios.get(API_URL  + "/events" , { headers: authHeader() })   
   
 };
 
 const get = id => {
-    return http.get(`/events/${id}`);
+    return axios.get(API_URL + `/events/${id}`,  { headers: authHeader() });
 };
 const create = data => {
-    return http.post("/events", data);
+    return axios.post(API_URL + "/events", data,  { headers: authHeader() });
 };
 const update = (id, data) => {
-    return http.put(`/events/${id}`, data);
+    return axios.put(API_URL + `/events/${id}`, data , { headers: authHeader() });
 };
 const remove = id => {
-    return http.delete(`/events/${id}`);
+    return axios.delete(API_URL + `/events/${id}` , { headers: authHeader() });
 };
 
 const findByTitle = title => {
-    return http.get(`/events/?title=${title}`);
+    return axios.get(API_URL + `/events/?title=${title}` , { headers: authHeader() });
 };
 const eventService = {
     getAll,
