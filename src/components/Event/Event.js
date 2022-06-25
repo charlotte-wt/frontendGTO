@@ -1,97 +1,160 @@
-import React from "react";
-import { connect } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import {Button} from "../Home/Button"; 
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { updateEvent, deleteEvent } from "../actions/events";
+import EventDataService from "../services/EventService";
 
-import "./Event.css";
+const Event = (props) => {
+  const initialEventState = {
+    id: null,
+    username: "",
+    email: "", 
+    title: "",
+    description: "",
+    published: false
+  };
+  const [currentEvent, setCurrentEvent] = useState(initialEventState);
+  const [message, setMessage] = useState("");
 
+  const dispatch = useDispatch();
 
-const Event = ({events, deleteEvent}) => {
-  
-  const navigate = useNavigate();
+  const getEvent = id => {
+    EventDataService.get(id)
+      .then(response => {
+        setCurrentEvent(response.data);
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    getEvent(props.match.params.id);
+  }, [props.match.params.id]);
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setCurrentEvent({ ...currentEvent, [name]: value });
+  };
+
+  const updateStatus = status => {
+    const data = {
+      id: currentEvent.id,
+      username: "",
+      email: "", 
+      title: currentEvent.title,
+      description: currentEvent.description,
+      published: status
+    };
+
+    dispatch(updateEvent(currentEvent.id, data))
+      .then(response => {
+        console.log(response);
+
+        setCurrentEvent({ ...currentEvent, published: status });
+        setMessage("The status was updated successfully!");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const updateContent = () => {
+    dispatch(updateEvent(currentEvent.id, currentEvent))
+      .then(response => {
+        console.log(response);
+
+        setMessage("The event was updated successfully!");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const removeEvent = () => {
+    dispatch(deleteEvent(currentEvent.id))
+      .then(() => {
+        props.history.push("/events");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   return (
-   
-   <div className="event-container">
-      <div className="event-row">
-        <Button
-          className='btns'
-          buttonStyle='btn--addevent'
-          buttonSize='btn--large'
-          onClick={() => navigate("/events/add")}
-        >
-          Add Event
-        </Button>
-        <div className="col-md-10 mx-auto my-4">
-          <table className="table">
-            <thead className="table-header bg-dark text-white">
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Host Name</th>
-                <th scope="col">Host Email</th>
-                <th scope="col">Event Title</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {events.length > 0 ? (
-                events.map((event, id) => (
-                  <tr key={id}>
-                    <td>{id + 1}</td>
-                    <td>{event.username}</td>
-                    <td>{event.email}</td>
-                    <td>{event.title}</td>
-                    <td>{event.description}</td>
-                    <td>
-                    <Button
-                        className='btns'
-                        buttonStyle='btn--pink'
-                        buttonSize='btn--middle'
-                        onClick={() => navigate(`/events/edit/${event.id}`)}
-                        
-                      >
-                        Edit
-                      </Button>  
-                      </td>
-                      <td>                    
-                      <Button
-                        className='btns'
-                        buttonStyle='btn--pink'
-                        buttonSize='btn--middle'
-                        onClick={() => deleteEvent(event.id)}
-                        
-                      >
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td>No events found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+    <div>
+      {currentEvent ? (
+        <div className="edit-form">
+          <h4>Event</h4>
+          <form>
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                name="title"
+                value={currentEvent.title}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="description">Description</label>
+              <input
+                type="text"
+                className="form-control"
+                id="description"
+                name="description"
+                value={currentEvent.description}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>
+                <strong>Status:</strong>
+              </label>
+              {currentEvent.published ? "Published" : "Pending"}
+            </div>
+          </form>
+
+          {currentEvent.published ? (
+            <button
+              className="badge badge-primary mr-2"
+              onClick={() => updateStatus(false)}
+            >
+              UnPublish
+            </button>
+          ) : (
+            <button
+              className="badge badge-primary mr-2"
+              onClick={() => updateStatus(true)}
+            >
+              Publish
+            </button>
+          )}
+
+          <button className="badge badge-danger mr-2" onClick={removeEvent}>
+            Delete
+          </button>
+
+          <button
+            type="submit"
+            className="badge badge-success"
+            onClick={updateContent}
+          >
+            Update
+          </button>
+          <p>{message}</p>
         </div>
-      </div>
+      ) : (
+        <div>
+          <br />
+          <p>Please click on a Event...</p>
+        </div>
+      )}
     </div>
-    
-   
   );
 };
 
-const mapEventStateToProps = (eventState) => ({
-    events: eventState.eventR,
-});
-
-const mapEventDispatchToProps = (dispatch) => ({
-    deleteEvent: (id) => {
-        dispatch({ type: "DELETE_EVENT", payload: id });
-    },
-});
-
-
-export default connect(mapEventStateToProps, mapEventDispatchToProps)(Event);
+export default Event;

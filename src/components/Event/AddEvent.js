@@ -1,127 +1,95 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import {Button} from "../Home/Button"; 
+import { useDispatch } from "react-redux";
+import { createEvent } from "../actions/events";
 
+const AddEvent = () => {
+  const initialEventState = {
+    id: null,
+    username: "",
+    email: "",
+    title: "",
+    description: "",
+    published: false
+  };
+  const [event, setEvent] = useState(initialEventState);
+  const [submitted, setSubmitted] = useState(false);
 
+  const dispatch = useDispatch();
 
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setEvent({ ...event, [name]: value });
+  };
 
-const AddEvent =({ events, addEvent }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const saveEvent = () => {
+    const { username, email, title, description } = event;
 
-  const navigate = useNavigate();
+    dispatch(createEvent(username, email, title, description))
+      .then(data => {
+        setEvent({
+          id: data.id,
+          title: data.title,
+          description: data.description,
+          published: data.published
+        });
+        setSubmitted(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // const checkEventUserExists = events.filter((event) =>
-    //   event.email === email ? event : null
-    // );
-    // const checkEventNameExists = events.filter((event) =>
-    //   event.name === name ? event : null
-    // );
+        console.log(data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
-    if (!email || !name || !description) {
-      return toast.warning("Please fill in all fields!!");
-    }
-    // if (checkEventUserExists.length > 0 && checkEventNameExists.length > 0) {
-    //   return toast.error("This event already exists!!");
-    // }
-
-    const data = {
-      id: events.length > 0 ? events[events.length - 1].id + 1 : 0,
-      email,
-      name,
-      title,
-      description,
-    };
-
-    addEvent(data);
-    toast.success("Event added successfully!!");
-    navigate("/events");
+  const newEvent = () => {
+    setEvent(initialEventState);
+    setSubmitted(false);
   };
 
   return (
-    <div className="container-fluid">
-      <br></br>
-      <h1 className="title-addevent">Add Event</h1>
-      <br></br>
-      <div className="addevent-row">
-        <div className="col-md-6 p-5 mx-auto shadow">
-          <form className = "form-start" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Host Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Event Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div className="form-group d-flex align-items-center justify-content-between my-2">
-              <Button
-                  className='btns'
-                  buttonStyle='btn--addevent'
-                  buttonSize='btn--middle'
-                  onClick={() => handleSubmit()}
-                  
-                >
-                  Add Event
-              </Button>
-              <Button
-              className='btns'
-              buttonStyle='btn--pink'
-              buttonSize='btn--middle'
-              onClick={() => navigate(`/events`)}
-              
-              >
-              Go Back
-              </Button>
-            </div>
-          </form>
+    <div className="submit-form">
+      {submitted ? (
+        <div>
+          <h4>You submitted successfully!</h4>
+          <button className="btn btn-success" onClick={newEvent}>
+            Add
+          </button>
         </div>
-      </div>
+      ) : (
+        <div>
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              required
+              value={event.title}
+              onChange={handleInputChange}
+              name="title"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              required
+              value={event.description}
+              onChange={handleInputChange}
+              name="description"
+            />
+          </div>
+
+          <button onClick={saveEvent} className="btn btn-success">
+            Submit
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  events: state,
-});
-const mapDispatchToProps = (dispatch) => ({
-  addEvent: (data) => {
-    dispatch({ type: "ADD_EVENT", payload: data });
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddEvent);
+export default AddEvent;
