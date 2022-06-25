@@ -1,18 +1,45 @@
-import React from "react";
 import { connect } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import {Button} from "../Home/Button"; 
-
+import { updateEvent, deleteEvent } from "../../actions/events";
+import EventDataService from "../../services/eventService";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  retrieveEvents,
+  findEventsByTitle,
+} from "../../actions/events";
 import "./Event.css";
 
 
 const Event = ({events, deleteEvent}) => {
   
+
+  // const [searchTitle, setSearchTitle] = useState("");
+
   const navigate = useNavigate();
+  
+
+  // const onChangeSearchTitle = e => {
+  //   const searchTitle = e.target.value;
+  //   setSearchTitle(searchTitle);
+  // };
+
+  // const findByTitle = () => {
+  //   dispatch(findEventsByTitle(searchTitle));
+  // };
+
+
+
 
   return (
+    
+      
+      
    
    <div className="event-container">
+     
+     
       <div className="event-row">
         <Button
           className='btns'
@@ -78,6 +105,8 @@ const Event = ({events, deleteEvent}) => {
         </div>
       </div>
     </div>
+
+    
     
    
   );
@@ -90,6 +119,7 @@ const mapEventStateToProps = (eventState) => ({
 const mapEventDispatchToProps = (dispatch) => ({
     deleteEvent: (id) => {
         dispatch({ type: "DELETE_EVENT", payload: id });
+        dispatch(deleteEvent(id));
     },
 });
 
