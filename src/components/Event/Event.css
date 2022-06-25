@@ -1,21 +1,16 @@
-/* .event-container {
+.event-list-container {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
-    height: 70vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
+ 
 
 }
 
-.addevent-row {
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    position: sticky;
-    margin-top: 50px;
 
-  }
+.row {
+    height:50%;
+}
 
 th, td {
     padding: 15px;
@@ -26,14 +21,14 @@ th {
     background-color: pink;
 }
 
-tr:hover {
+.group:hover {
     background-color: #FFDCD1;
-} */
+}  
 
 
 
 /* AddEvent.js */
-/* .container-fluid {
+.container-fluid {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
     height: 70vw;
     justify-content: center;
@@ -43,13 +38,13 @@ tr:hover {
     margin-top: 0;
 }
 
-.form-control {
+/* .form-control {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-}
+} */
 
-.form-start {
+/* .form-start {
     margin-top:5vw;
 } */

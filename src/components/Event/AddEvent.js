@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createEvent } from "../../actions/events";
+import "./Event.css";
 
 const AddEvent = () => {
   const initialEventState = {
