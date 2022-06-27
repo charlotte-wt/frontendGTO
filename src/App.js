@@ -70,21 +70,21 @@ function App() {
             </li>
 
 
-          {showModeratorBoard && (
+          {/* {showModeratorBoard && (
             <li className="nav-item">
               <Link to={"/mod"} className="nav-link">
                 Moderator Board
               </Link>
             </li>
-          )}
-
+          )} */}
+{/* 
           {showAdminBoard && (
             <li className="nav-item">
               <Link to={"/admin"} className="nav-link">
                 Admin Board
               </Link>
             </li>
-          )}
+          )} */}
 
           {currentUser && (
             <li className="nav-item">
@@ -155,7 +155,7 @@ function App() {
             <Route exact path="/friends/add" element={<AddFriend />} />
             <Route exact path="/events" element={<EventList />} />
             <Route exact path="/events/add" element={<AddEvent />} />
-            <Route exact path="/events/edit/:id" element={<EditEvent />} />
+            <Route exact path="/events/:id" element={<Event />} />
             <Route path="/content/technology" element={<Content />} />
             <Route path="/content/accountancy" element={<Content />} />
             <Route path="/content/startup" element={<Content />} />

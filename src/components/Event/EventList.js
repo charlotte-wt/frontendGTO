@@ -21,6 +21,7 @@ const EventsList = () => {
 
     useEffect(() => {
         dispatch(retrieveEvents());
+      
     }, []);
 
     const onChangeSearchTitle = e => {

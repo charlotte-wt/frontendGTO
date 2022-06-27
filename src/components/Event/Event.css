@@ -36,8 +36,17 @@ th {
 /* AddEvent.js */
 .container-fluid {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
-    height: 70vw;
+    height: 100vh;
     justify-content: center;
+   
+}
+
+.container-submitted {
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
+    height: 100vh;
+    justify-content: center;
+    text-align: center;
+
 }
 
 .title-addevent {
