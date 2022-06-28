@@ -138,7 +138,7 @@ const EventsList = () => {
                                 <label>
                                     <strong>Status:</strong>
                                 </label>{" "}
-                                {currentEvent.published ? "Published" : "Pending"}
+                                {currentEvent.published ? "Attending" : "Awaiting Attendance"}
                             </div>
 
                             <Link
