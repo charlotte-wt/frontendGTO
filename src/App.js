@@ -10,20 +10,19 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Home from "./components/Home/Home";
-import WithNav from "./components/NavBar/WithNav"
-import WithoutNav from "./components/NavBar/WithoutNav"
 import Friend from "./components/Friend/Friend";
 import AddFriend from "./components/Friend/AddFriend";
 import Event from "./components/Event/Event";
 import EventList from "./components/Event/EventList";
 import AddEvent from "./components/Event/AddEvent";
-import EditEvent from "./components/Event/EditEvent";
 import Content from "./components/Content/Content";
-
-import { history } from "./helpers/History";
+import Blogs from "./components/Blog/Blogs";
+import Blog from "./components/Blog/Blog";
 import AuthService from './services/auth.service';
 import EventBus from "./common/EventBus";
 import BoardUser from "./components/BoardUser";
+
+import "./components/NavBar/NavBar";
 
 function App() {
 
@@ -58,7 +57,7 @@ function App() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav className="navbar sticky-top navbar-expand navbar-dark bg-dark">
         <Link to={"/home"} className="navbar-brand">
           GIRLSTIMEONLINE
         </Link>
@@ -147,6 +146,8 @@ function App() {
 
 
             <Route path="/" element={<Home/>} />
+            <Route exact path="/blogs/:id" element={<Blog />} />
+            <Route path="/blogs" element={<Blogs />} />
             <Route exact path ="/login" element = {<Login/>}/>
             <Route exact path ="/register" element = {<Register/>}/>
             <Route exact path ="/profile" element = {<Profile/>}/>
