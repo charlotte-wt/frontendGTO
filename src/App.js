@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Profile from "./components/Profile";
+import Profile from "./components/Profile/Profile";
 import Home from "./components/Home/Home";
 import Friend from "./components/Friend/Friend";
 import AddFriend from "./components/Friend/AddFriend";
@@ -16,7 +16,7 @@ import Event from "./components/Event/Event";
 import EventList from "./components/Event/EventList";
 import AddEvent from "./components/Event/AddEvent";
 import Content from "./components/Content/Content";
-import Blogs from "./components/Blog/Blogs";
+// import Blogs from "./components/Blog/Blogs";
 import Blog from "./components/Blog/Blog";
 import AuthService from './services/auth.service';
 import EventBus from "./common/EventBus";
@@ -68,6 +68,12 @@ function App() {
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link to={"/blogs"} className="nav-link">
+                Blog
+              </Link>
+            </li>
+
 
           {/* {showModeratorBoard && (
             <li className="nav-item">
@@ -102,6 +108,8 @@ function App() {
            </li>
             
           )}
+
+          
         </div>
 
         {currentUser ? (
@@ -146,8 +154,8 @@ function App() {
 
 
             <Route path="/" element={<Home/>} />
-            <Route exact path="/blogs/:id" element={<Blog />} />
-            <Route path="/blogs" element={<Blogs />} />
+            <Route exact path="/blogs" element={<Blog />} />
+   
             <Route exact path ="/login" element = {<Login/>}/>
             <Route exact path ="/register" element = {<Register/>}/>
             <Route exact path ="/profile" element = {<Profile/>}/>
