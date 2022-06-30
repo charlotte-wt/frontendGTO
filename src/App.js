@@ -16,7 +16,7 @@ import Event from "./components/Event/Event";
 import EventList from "./components/Event/EventList";
 import AddEvent from "./components/Event/AddEvent";
 import Content from "./components/Content/Content";
-// import Blogs from "./components/Blog/Blogs";
+import BlogPost from "./components/Blog/BlogPost";
 import Blog from "./components/Blog/Blog";
 import AuthService from './services/auth.service';
 import EventBus from "./common/EventBus";
@@ -91,14 +91,14 @@ function App() {
             </li>
           )} */}
 
-          {currentUser && (
+          {/* {currentUser && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
                 User
               </Link>
             </li>
             
-          )}
+          )} */}
 
           {currentUser && (
              <li className="nav-item">
@@ -155,7 +155,7 @@ function App() {
 
             <Route path="/" element={<Home/>} />
             <Route exact path="/blogs" element={<Blog />} />
-   
+            <Route exact path="/blogs/:id" element={<BlogPost />} />
             <Route exact path ="/login" element = {<Login/>}/>
             <Route exact path ="/register" element = {<Register/>}/>
             <Route exact path ="/profile" element = {<Profile/>}/>
