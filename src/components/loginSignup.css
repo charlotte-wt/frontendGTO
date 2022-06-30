@@ -1,0 +1,6 @@
+.container-fluid {
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}

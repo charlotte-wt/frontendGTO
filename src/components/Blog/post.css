@@ -54,3 +54,8 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
   }
+
+  .title-link {
+    justify-content: center;
+    text-align: center;
+  }
