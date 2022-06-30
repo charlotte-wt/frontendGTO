@@ -22,7 +22,7 @@ export default function CenterPortion() {
           className='btns'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
-          onClick={() => navigate("/content")}
+          onClick={() => navigate("/blogs")}
         >
           SHARE YOUR CAREER <i className='far fa-play-circle' />
         </Button>
