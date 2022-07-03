@@ -31,12 +31,17 @@ export default function BlogPost() {
   }, [path]);
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`/blogs/${post.id}`, {
-        data: { username: user.username },
-      });
-      window.location.replace("/");
-    } catch (err) { }
+    if (window.confirm("Are you sure you want to delete this event?"))  {
+      try {
+        await BlogDataService.remove(path);
+        window.location.replace("/blogs");
+      } catch (err) { 
+        // do nothing
+      }
+    } else {
+      // do nothing
+    }
+    
   };
 
   const handleUpdate = async () => {
