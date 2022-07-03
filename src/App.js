@@ -21,6 +21,7 @@ import Blog from "./components/Blog/Blog";
 import AuthService from './services/auth.service';
 import EventBus from "./common/EventBus";
 import BoardUser from "./components/BoardUser";
+import Write from "./components/Blog/Write";
 
 import "./components/NavBar/NavBar";
 
@@ -62,17 +63,17 @@ function App() {
           GIRLSTIMEONLINE
         </Link>
         <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
+          <li className="nav-item">
+            <Link to={"/home"} className="nav-link">
+              Home
+            </Link>
+          </li>
 
-            <li className="nav-item">
-              <Link to={"/blogs"} className="nav-link">
-                Blog
-              </Link>
-            </li>
+          <li className="nav-item">
+            <Link to={"/blogs"} className="nav-link">
+              Blog
+            </Link>
+          </li>
 
 
           {/* {showModeratorBoard && (
@@ -82,7 +83,7 @@ function App() {
               </Link>
             </li>
           )} */}
-{/* 
+          {/* 
           {showAdminBoard && (
             <li className="nav-item">
               <Link to={"/admin"} className="nav-link">
@@ -101,15 +102,24 @@ function App() {
           )} */}
 
           {currentUser && (
-             <li className="nav-item">
-             <Link to={"/events"} className="nav-link">
-               Events
-             </Link>
-           </li>
-            
+            <li className="nav-item">
+              <Link to={"/blogs/write"} className="nav-link">
+                Write Blog
+              </Link>
+            </li>
+
           )}
 
-          
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/events"} className="nav-link">
+                Events
+              </Link>
+            </li>
+
+          )}
+
+
         </div>
 
         {currentUser ? (
@@ -147,34 +157,35 @@ function App() {
         )}
       </nav>
 
-        <Routes>
-          <Route path="/user" element={<BoardUser/>} />
-          {/* <Route path="/mod" element={<BoardModerator/>} />
+      <Routes>
+        <Route path="/user" element={<BoardUser />} />
+        {/* <Route path="/mod" element={<BoardModerator/>} />
           <Route path="/admin" element={<BoardAdmin/>} /> */}
 
 
-            <Route path="/" element={<Home/>} />
-            <Route exact path="/blogs" element={<Blog />} />
-            <Route exact path="/blogs/:id" element={<BlogPost />} />
-            <Route exact path ="/login" element = {<Login/>}/>
-            <Route exact path ="/register" element = {<Register/>}/>
-            <Route exact path ="/profile" element = {<Profile/>}/>
-            <Route exact path="/home" element={<Home/>} />
-            <Route exact path="/friends" element={<Friend/>} />
-            <Route exact path="/friends/add" element={<AddFriend />} />
-            <Route exact path="/events" element={<EventList />} />
-            <Route exact path="/events/add" element={<AddEvent />} />
-            <Route exact path="/events/:id" element={<Event />} />
-            <Route path="/content/technology" element={<Content />} />
-            <Route path="/content/accountancy" element={<Content />} />
-            <Route path="/content/startup" element={<Content />} />
-            <Route path="/content/investmentbanking" element={<Content />} />
-            <Route path="/content/engineering" element={<Content />} />         
-        </Routes>
-     
+        <Route path="/" element={<Home />} />
+        <Route exact path="/blogs" element={<Blog />} />
+        <Route exact path="/blogs/:id" element={<BlogPost />} />
+        <Route exact path="/blogs/write" element={<Write />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/friends" element={<Friend />} />
+        <Route exact path="/friends/add" element={<AddFriend />} />
+        <Route exact path="/events" element={<EventList />} />
+        <Route exact path="/events/add" element={<AddEvent />} />
+        <Route exact path="/events/:id" element={<Event />} />
+        <Route path="/content/technology" element={<Content />} />
+        <Route path="/content/accountancy" element={<Content />} />
+        <Route path="/content/startup" element={<Content />} />
+        <Route path="/content/investmentbanking" element={<Content />} />
+        <Route path="/content/engineering" element={<Content />} />
+      </Routes>
+
 
     </div>
-    );
+  );
 }
 
 export default App;
