@@ -120,8 +120,8 @@ const Event = (props) => {
                 <input
                   type="text"
                   className="form-control"
-                  id="description"
-                  name="description"
+                  id="email"
+                  name="email"
                   value={currentEvent.email}
                   onChange={handleInputChange}
                 />
