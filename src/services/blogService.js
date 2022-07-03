@@ -10,7 +10,7 @@ const get = id => {
 };
 
 const create = data => {
-  return http.post("/blogs", data, { headers: authHeader() });
+  return http.post("/blogs/add", data, { headers: authHeader() });
 };
 
 const update = (id, data) => {
