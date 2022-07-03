@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 import AuthService from "../../services/auth.service";
 import BlogDataService from "../../services/blogService";
 import { Button } from "../Home/Button";
-import "./blogPost.css";
+import "./blogpost.css";
 
 export default function BlogPost() {
 
