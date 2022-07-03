@@ -13,7 +13,7 @@ const Event = (props) => {
     email: "",
     title: "",
     description: "",
-    published: false
+    status: false
   };
   const [currentEvent, setCurrentEvent] = useState(initialEventState);
   const [message, setMessage] = useState("");
@@ -42,21 +42,21 @@ const Event = (props) => {
     setCurrentEvent({ ...currentEvent, [name]: value });
   };
 
-  const updateStatus = status => {
+  const updateStatus = current_status => {
     const data = {
       id: currentEvent.id,
       username: currentEvent.username,
       email: currentEvent.email,
       title: currentEvent.title,
       description: currentEvent.description,
-      published: status
+      status: current_status
     };
 
     dispatch(updateEvent(currentEvent.id, data))
       .then(response => {
         console.log(response);
 
-        setCurrentEvent({ ...currentEvent, published: status });
+        setCurrentEvent({ ...currentEvent, status: current_status });
         setMessage("The status was updated successfully!");
       })
       .catch(e => {
@@ -153,13 +153,13 @@ const Event = (props) => {
                 <label>
                   <strong>Status:</strong>
                 </label>
-                {currentEvent.published ? "Attending" : "Awaiting Attendance"}
+                {currentEvent.status ? "Attending" : "Awaiting Attendance"}
               </div>
 
 
             </form>
 
-            {currentEvent.published ? (
+            {currentEvent.status ? (
               <button
                 className="badge badge-primary mr-2"
                 onClick={() => updateStatus(false)}
