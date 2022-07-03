@@ -33,9 +33,9 @@ tr:hover {
 
 
 /* AddFriend.js */
-.container-fluid {
+.container-friend {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
-    height: 70vw;
+    height: 100vh;
     justify-content: center;
 }
 
@@ -46,10 +46,10 @@ tr:hover {
 .form-control {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 20px 0;
     box-sizing: border-box;
 }
 
 .form-start {
-    margin-top:5vw;
+    margin-top:10vh;
 }

@@ -44,8 +44,9 @@ const AddFriend =({ contacts, addContact }) => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-friend">
       <h1 className="title-addfriend">Add Friend</h1>
+      
       <div className="addfriend-row">
         <div className="col-md-6 p-5 mx-auto shadow">
           <form className = "form-start" onSubmit={handleSubmit}>
