@@ -83,9 +83,10 @@ export default function BlogPost() {
           />
         ) : (
           <div className="singlePostTitle">
-
+            <h1 className="h1_title">{title}</h1>
 
             {post.userId === user_id && (
+              
               <div className="singlePostEdit">
                 <Button
                   className='btns'
@@ -106,7 +107,7 @@ export default function BlogPost() {
 
               </div>
             )}
-            <h1 className="h1_title">{title}</h1>
+            
 
 
           </div>
