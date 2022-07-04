@@ -31,17 +31,17 @@ export default function BlogPost() {
   }, [path]);
 
   const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this event?"))  {
+    if (window.confirm("Are you sure you want to delete this blog post?")) {
       try {
         await BlogDataService.remove(path);
         window.location.replace("/blogs");
-      } catch (err) { 
+      } catch (err) {
         // do nothing
       }
     } else {
       // do nothing
     }
-    
+
   };
 
   const handleUpdate = async () => {
@@ -65,83 +65,87 @@ export default function BlogPost() {
   // only blog poster can edit / update their blog post
 
   var user_id = null;
+  var user_name = null;
   try {
     user_id = user.id;
+    user_name = user.username;
 
   } catch (err) {
 
   }
 
   return (
-    <div className="singlePost">
-      <div className="singlePostWrapper">
-        {post.image && (
-          <img src={post.image} alt="" className="singlePostImg" />
-        )}
-        {updateMode ? (
-          <input
-            type="text"
-            value={title}
-            className="singlePostTitleInput"
-            autoFocus
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        ) : (
-          <div className="singlePostTitle">
-            <h1 className="h1_title">{title}</h1>
+    <div className="container-fluid">
+      <div className="singlePost">
+        <div className="singlePostWrapper">
+          {post.image && (
+            <img src={post.image} alt="" className="singlePostImg" />
+          )}
+          {updateMode ? (
+            <input
+              type="text"
+              value={title}
+              className="singlePostTitleInput"
+              autoFocus
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          ) : (
+            <div className="singlePostTitle">
+              <h1 className="h1_title">{title}</h1>
 
-            {post.userId === user_id && (
-              
-              <div className="singlePostEdit">
-                <Button
-                  className='btns'
-                  buttonStyle='btn--pink'
-                  buttonSize='btn--middle'
-                  onClick={() => setUpdateMode(true)}
+              {(post.userId === user_id || user_name === "moderator") && (
 
-                >Edit</Button>
+                <div className="singlePostEdit">
+                  <Button
+                    className='btns'
+                    buttonStyle='btn--pink'
+                    buttonSize='btn--middle'
+                    onClick={() => setUpdateMode(true)}
 
-                <Button
-                  className='btns'
-                  buttonStyle='btn--pink'
-                  buttonSize='btn--middle'
-                  onClick={handleDelete}
+                  >Edit</Button>
 
-                >Delete</Button>
+                  <Button
+                    className='btns'
+                    buttonStyle='btn--pink'
+                    buttonSize='btn--middle'
+                    onClick={handleDelete}
 
-
-              </div>
-            )}
-            
+                  >Delete</Button>
 
 
+                </div>
+              )}
+
+
+
+            </div>
+          )}
+          <div className="singlePostInfo">
+            <span className="singlePostAuthor">
+              Author:
+
+              <b> {post.username}</b>
+
+            </span>
+            <span className="singlePostDate">
+              {/* {new Date(post.createdAt).toDateString()} */}
+            </span>
           </div>
-        )}
-        <div className="singlePostInfo">
-          <span className="singlePostAuthor">
-            Author:
-
-            <b> {post.username}</b>
-
-          </span>
-          <span className="singlePostDate">
-            {/* {new Date(post.createdAt).toDateString()} */}
-          </span>
+          {updateMode ? (
+            <textarea
+              className="singlePostDescInput"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+            />
+          ) : (
+            <p className="singlePostDesc">{desc}</p>
+          )}
+          {updateMode && (
+            <button className="singlePostButton" onClick={handleUpdate}>
+              Update
+            </button>
+          )}
         </div>
-        {updateMode ? (
-          <textarea
-            className="singlePostDescInput"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
-        ) : (
-          <p className="singlePostDesc">{desc}</p>
-        )}
-        {updateMode && (
-          <button className="singlePostButton" onClick={handleUpdate}>
-            Update
-          </button>
-        )}
       </div>
     </div>
   );
