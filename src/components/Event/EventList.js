@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AuthService from "../../services/auth.service";
 import {
     retrieveEvents,
     findEventsByTitle,
     deleteAllEvents,
+    updateEvent
 } from "../../actions/events";
 import { Link } from "react-router-dom";
 import "./Event.css";
-import {Button} from "../Home/Button";
+import { Button } from "../Home/Button";
 
 const EventsList = () => {
     const [currentEvent, setCurrentEvent] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [searchTitle, setSearchTitle] = useState("");
+
 
     const events = useSelector(state => state.eventR);
     const navigate = useNavigate();
@@ -21,7 +24,7 @@ const EventsList = () => {
 
     useEffect(() => {
         dispatch(retrieveEvents());
-      
+
     }, []);
 
     const onChangeSearchTitle = e => {
@@ -50,10 +53,46 @@ const EventsList = () => {
             });
     };
 
+    const updateStatus = current_status => {
+        const data = {
+            id: currentEvent.id,
+            username: currentEvent.username,
+            email: currentEvent.email,
+            title: currentEvent.title,
+            description: currentEvent.description,
+            status: current_status
+        };
+
+        dispatch(updateEvent(currentEvent.id, data))
+            .then(response => {
+                console.log(response);
+
+                setCurrentEvent({ ...currentEvent, status: current_status });
+
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
     const findByTitle = () => {
         refreshData();
         dispatch(findEventsByTitle(searchTitle));
     };
+
+    const user = AuthService.getCurrentUser();
+
+    // user id is null fetching it will get error
+    // to check if person logged in is the blog poster 
+    // only blog poster can edit / update their blog post
+
+    var user_name = null;
+    try {
+        user_name = user.username;
+
+    } catch (err) {
+
+    }
 
     return (
         <div className="event-list-container">
@@ -97,13 +136,13 @@ const EventsList = () => {
                     </ul>
 
                     <Button
-                      className='btn btn-success'
-                      buttonStyle='btn--addevent'
-                      buttonSize='btn--middle'
-                      onClick={() => navigate("add")}
+                        className='btn btn-success'
+                        buttonStyle='btn--addevent'
+                        buttonSize='btn--middle'
+                        onClick={() => navigate("add")}
 
                     >
-                      Add Event
+                        Add Event
                     </Button>
                 </div>
                 <div className="col-md-6">
@@ -140,13 +179,31 @@ const EventsList = () => {
                                 </label>{" "}
                                 {currentEvent.status ? "Attending" : "Awaiting Attendance"}
                             </div>
+                            {(currentEvent.username === user_name || user_name == "moderator") && (
+                                <Link
+                                    to={"/events/" + currentEvent.id}
+                                    className="badge badge-warning mr-2"
+                                >
+                                    Edit
+                                </Link>
+                            )
+                            }
 
-                            <Link
-                                to={"/events/" + currentEvent.id}
-                                className="badge badge-warning"
-                            >
-                                Edit
-                            </Link>
+                            {currentEvent.status ? (
+                                <button
+                                    className="badge badge-primary borderless"
+                                    onClick={() => updateStatus(false)}
+                                >
+                                    Unattend
+                                </button>
+                            ) : (
+                                <button
+                                    className="badge badge-primary "
+                                    onClick={() => updateStatus(true)}
+                                >
+                                    Attend
+                                </button>
+                            )}
                         </div>
                     ) : (
                         <div>
