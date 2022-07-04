@@ -8,6 +8,10 @@
 }
 
 
+.badge {
+    border: none;
+}
+
 .row {
     height:50%;
 }
