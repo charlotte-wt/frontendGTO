@@ -1,21 +1,20 @@
-.event-container {
+.event-list-container {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
-    height: 70vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
+ 
 
 }
 
-.addevent-row {
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    position: sticky;
-    margin-top: 50px;
 
-  }
+.badge {
+    border: none;
+}
+
+.row {
+    height:50%;
+}
 
 th, td {
     padding: 15px;
@@ -26,30 +25,57 @@ th {
     background-color: pink;
 }
 
-tr:hover {
-    background-color: #FFDCD1;
+.list-group-item:hover {
+    background-color: rgb(255, 182, 193);
+}  
+
+.list-group-item.active {
+    background-color: rgb(255, 182, 193);
+    border-color:rgb(255, 182, 193);
+    color: #212529;
 }
 
 
 
 /* AddEvent.js */
-.container-fluid {
+.container-unsubmitted {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
-    height: 70vw;
+    height: 100vh;
     justify-content: center;
+    text-align: center;
+   
+}
+
+.container-submitted {
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
+    height: 100vh;
+    justify-content: center;
+    text-align: center;
+
 }
 
 .title-addevent {
-    margin-top: 0;
+    margin-top: 0vh;
 }
 
-.form-control {
+.addevent-row {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    margin-top: 20vh;
+
+  }
+
+/* .form-control {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-}
+} */
 
-.form-start {
+/* .form-start {
     margin-top:5vw;
-}
+} */

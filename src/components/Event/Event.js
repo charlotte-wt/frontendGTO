@@ -1,88 +1,213 @@
-import React from "react";
-import { connect } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import {Button} from "../Home/Button"; 
-
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useParams, useNavigate } from 'react-router-dom';
+import { updateEvent, deleteEvent } from "../../actions/events";
+import EventDataService from "../../services/eventService";
 import "./Event.css";
+import { Button } from "../Home/Button";
+
+const Event = (props) => {
+  const initialEventState = {
+    id: null,
+    username: "",
+    email: "",
+    title: "",
+    description: "",
+    status: false
+  };
+  const [currentEvent, setCurrentEvent] = useState(initialEventState);
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  let { id } = useParams();
+
+  const getEvent = id => {
+    EventDataService.get(id)
+      .then(response => {
+        setCurrentEvent(response.data);
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    getEvent(id);
+  }, [id]);
+
+  const handleInputChange = event_change => {
+    const { name, value } = event_change.target;
+    setCurrentEvent({ ...currentEvent, [name]: value });
+  };
+
+  const updateStatus = current_status => {
+    const data = {
+      id: currentEvent.id,
+      username: currentEvent.username,
+      email: currentEvent.email,
+      title: currentEvent.title,
+      description: currentEvent.description,
+      status: current_status
+    };
+
+    dispatch(updateEvent(currentEvent.id, data))
+      .then(response => {
+        console.log(response);
+
+        setCurrentEvent({ ...currentEvent, status: current_status });
+        setMessage("The status was updated successfully!");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const updateContent = () => {
+    dispatch(updateEvent(currentEvent.id, currentEvent))
+      .then(response => {
+        console.log(response);
+
+        setMessage("The event was updated successfully!");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
 
-const Event = (events, deleteEvent) => {
 
-    const navigate = useNavigate();
+
+
+
+  const removeEvent = () => {
+    if (window.confirm("Are you sure you want to delete this event?")) {
+      dispatch(deleteEvent(currentEvent.id))
+        .then(() => {
+          navigate("/events");
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    } else {
+      // do nothing
+    }
+  };
+
 
   return (
-   
-   <div className="event-container">
-      <div className="event-row">
-        <Button
-          className='btns'
-          buttonStyle='btn--addevent'
-          buttonSize='btn--large'
-          onClick={() => navigate("/events/add")}
-        >
-          Add Event
-        </Button>
-        <div className="col-md-10 mx-auto my-4">
-          <table className="table">
-            <thead className="table-header bg-dark text-white">
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Event Name</th>
-                <th scope="col">Host Email</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {events.length > 0 ? (
-                events.map((event, id) => (
-                  <tr key={id}>
-                    <td>{id + 1}</td>
-                    <td>{event.name}</td>
-                    <td>{event.email}</td>
-                    <td>{event.description}</td>
-                    <td>
-                    <Link
-                        to={`/edit/${event.id}`}
-                        className="btn btn-sm btn-primary mr-1"
-                      >
-                        Edit
-                      </Link>                        
-                      <Button
-                        className='btns'
-                        buttonStyle='btn--pink'
-                        buttonSize='btn--middle'
-                        onClick={() => deleteEvent(event.id)}
-                        
-                      >
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td>No events found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+    <div>
+      {currentEvent ? (
+        <div className="container-fluid">
+          <div className="col-md-6 p-5 mx-auto shadow">
+            <h4 className="title-addevent">Event</h4>
+            <form>
+
+              <div className="form-group">
+                <label htmlFor="username">Host Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  name="username"
+                  value={currentEvent.username}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="">Host Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  value={currentEvent.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  name="title"
+                  value={currentEvent.title}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="description"
+                  name="description"
+                  value={currentEvent.description}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>
+                  <strong>Status:</strong>
+                </label>
+                {currentEvent.status ? "Attending" : "Awaiting Attendance"}
+              </div>
+
+
+            </form>
+
+            {currentEvent.status ? (
+              <button
+                className="badge badge-primary mr-2"
+                onClick={() => updateStatus(false)}
+              >
+                Unattend
+              </button>
+            ) : (
+              <button
+                className="badge badge-primary mr-2"
+                onClick={() => updateStatus(true)}
+              >
+                Attend
+              </button>
+            )}
+
+            <button className="badge badge-danger mr-2" onClick={removeEvent}>
+              Delete
+            </button>
+
+            <button
+              type="submit"
+              className="badge badge-success"
+              onClick={updateContent}
+            >
+              Update
+            </button>
+            <div className="form-group d-flex align-items-center justify-content-between my-4">
+              <Button
+                className='btns'
+                buttonStyle='btn--backevent'
+                buttonSize='btn--middle'
+                onClick={() => navigate(`/events`)}
+
+              >
+                Go Back To Events
+              </Button>
+            </div>
+            <p>{message}</p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div>
+          <br />
+          <p>Please click on a Event...</p>
+        </div>
+      )}
     </div>
-    
-   
   );
 };
 
-const mapStateToProps = (state) => ({
-    events: state,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    deleteEvent: (id) => {
-        dispatch({ type: "DELETE_EVENT", payload: id });
-    },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Event);
+export default Event;

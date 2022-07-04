@@ -1,105 +1,170 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import {Button} from "../Home/Button"; 
+import { useDispatch } from "react-redux";
+import { createEvent } from "../../actions/events";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../Home/Button";
+import "./Event.css";
 
+const AddEvent = () => {
+  const initialEventState = {
+    id: null,
+    username: "",
+    email: "",
+    title: "",
+    description: "",
+    status: false
+  };
+  const [event, setEvent] = useState(initialEventState);
+  const [submitted, setSubmitted] = useState(false);
 
-
-
-const AddEvent =({ events, addEvent }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [description, setDescription] = useState("");
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // const checkEventUserExists = events.filter((event) =>
-    //   event.email === email ? event : null
-    // );
-    // const checkEventNameExists = events.filter((event) =>
-    //   event.name === name ? event : null
-    // );
+  const handleInputChange = event_change => {
+    const { name, value } = event_change.target;
+    // console.log({ ...event, [name]: value });
+    setEvent({ ...event, [name]: value });
+  };
 
-    if (!email || !name || !description) {
-      return toast.warning("Please fill in all fields!!");
-    }
-    // if (checkEventUserExists.length > 0 && checkEventNameExists.length > 0) {
-    //   return toast.error("This event already exists!!");
-    // }
+  const saveEvent = () => {
+    const { username, email, title, description } = event;
 
-    const data = {
-      id: events.length > 0 ? events[events.length - 1].id + 1 : 0,
-      email,
-      name,
-      description,
-    };
 
-    addEvent(data);
-    toast.success("Event added successfully!!");
-    navigate("/events");
+    dispatch(createEvent(username, email, title, description))
+      .then(data => {
+
+        setEvent({
+          id: data.id,
+          username: data.username,
+          email: data.email,
+          title: data.title,
+          description: data.description,
+          status: data.status
+        });
+        setSubmitted(true);
+
+        console.log(data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const newEvent = () => {
+    setEvent(initialEventState);
+    setSubmitted(false);
   };
 
   return (
-    <div className="container-fluid">
-      <h1 className="title-addevent">Add Event</h1>
-      <div className="addevent-row">
-        <div className="col-md-6 p-5 mx-auto shadow">
-          <form className = "form-start" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Event Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <Button
-                  className='btns'
+
+    <div className="submit-form">
+      {submitted ? (
+        <div className="container-submitted">
+          <br></br>
+          <h4>You submitted successfully!</h4>
+          <Button
+            className='btn btn-success'
+            buttonStyle='btn--addevent'
+            buttonSize='btn--middle'
+            onClick={newEvent}
+
+          >
+            Add More Events
+          </Button>
+          <Button
+            className='btns'
+            buttonStyle='btn--pink'
+            buttonSize='btn--middle'
+            onClick={() => navigate(`/events`)}
+
+          >
+            Go Back To Events
+          </Button>
+        </div>
+      ) : (
+          <div className = "container-unsubmitted">
+     
+            <h1 className="title-addevent">Add Event</h1>
+     
+            <div className="col-md-6 p-5 mx-auto shadow">
+
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  id="username"
+                  required
+                  type="text"
+                  placeholder="Host Name"
+                  name="username"
+                  value={event.username}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  type="email"
+                  id="email"
+                  required
+                  placeholder="Email"
+                  name="email"
+                  value={event.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  type="text"
+                  id="title"
+                  required
+                  placeholder="Event Title"
+                  name="title"
+                  value={event.title}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  className="form-control"
+                  type="text"
+                  id="description"
+                  required
+                  placeholder="Description"
+                  name="description"
+                  value={event.description}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group d-flex align-items-center justify-content-between my-2">
+                <Button
+                  className='btn btn-success'
                   buttonStyle='btn--addevent'
                   buttonSize='btn--middle'
-                  onClick={() => handleSubmit()}
-                  
+                  onClick={saveEvent}
+
                 >
                   Add Event
-              </Button>
+                </Button>
+                <Button
+                  className='btns'
+                  buttonStyle='btn--pink'
+                  buttonSize='btn--middle'
+                  onClick={() => navigate(`/events`)}
+
+                >
+                  Go Back
+                </Button>
+              </div>
+
             </div>
-          </form>
+        
         </div>
-      </div>
+
+
+      )}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  events: state,
-});
-const mapDispatchToProps = (dispatch) => ({
-  addEvent: (data) => {
-    dispatch({ type: "ADD_EVENT", payload: data });
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddEvent);
+export default AddEvent;

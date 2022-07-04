@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.css';
 // import { Link } from 'react-router-dom';
 
-const STYLES = ['btn--primary', 'btn--outline', 'btn--test', 'btn--pink', 'btn--addfriend', 'btn--addevent'];
+const STYLES = ['btn--primary', 'btn--outline', 'btn--test', 'btn--pink', 'btn--addfriend', 'btn--addevent', 'btn--backevent'];
 
 const SIZES = ['btn--medium', 'btn--large'];
 

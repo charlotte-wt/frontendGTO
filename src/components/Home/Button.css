@@ -32,6 +32,16 @@
     margin-top: 15px;
   }
 
+  .btn--backevent {
+    background-color: pink;
+    color: #242424;
+    border: 1px solid black;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    justify-content: center;
+    display: flex;
+  }
+
   .btn--pink {
     background-color: pink;
     color: #242424;
@@ -67,7 +77,9 @@
   }
   
   .btn--pink:hover,
-  .btn--addfriend:hover {
+  .btn--addfriend:hover,
+  .btn--backevent:hover,
+  .btn--addevent:hover {
     transition: all 0.3s ease-out;
     filter: brightness(0.9);
     transition: 250ms;

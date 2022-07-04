@@ -30,3 +30,4 @@ const initialState = [
     }
   };
   
+  export default contactReducer;
