@@ -86,7 +86,7 @@ const Register = () => {
     }
   };
   return (
-    <div className="containter-fluid">
+    <div className="container-fluid">
       <div className="col-md-12">
         <div className="card card-container">
           <img
