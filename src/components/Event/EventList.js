@@ -98,7 +98,7 @@ const EventsList = () => {
         <div className="event-list-container">
             <div className="list row">
                 <div className="col-md-8">
-                    <div className="input-group mb-3">
+                    <div className="input-group">
                         <input
                             type="text"
                             className="form-control"
@@ -107,18 +107,19 @@ const EventsList = () => {
                             onChange={onChangeSearchTitle}
                         />
                         <div className="input-group-append">
-                            <button
-                                className="btn btn-outline-secondary"
-                                type="button"
+                            <Button
+                                className='btns' 
+                                buttonStyle='btn--pink'
+                                buttonSize='btn--medium'
                                 onClick={findByTitle}
                             >
                                 Search
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <h4>Events List</h4>
+                    <h4 className = "title-h4">Events List</h4>
 
                     <ul className="list-group">
                         {events &&
@@ -138,7 +139,7 @@ const EventsList = () => {
                     <Button
                         className='btn btn-success'
                         buttonStyle='btn--addevent'
-                        buttonSize='btn--middle'
+                        buttonSize='btn--large'
                         onClick={() => navigate("add")}
 
                     >

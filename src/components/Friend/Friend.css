@@ -1,6 +1,7 @@
 .friend-container {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
-    height: 70vw;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
 
@@ -22,8 +23,12 @@ th, td {
     text-align: left;
 }
 
+table {
+    border-collapse: collapse;
+}
+
 th {
-    background-color: pink;
+    background-color: lightcoral;
 }
 
 tr:hover {
@@ -47,7 +52,6 @@ tr:hover {
     width: 100%;
     padding: 12px 20px;
     margin: 20px 0;
-    box-sizing: border-box;
 }
 
 .form-start {

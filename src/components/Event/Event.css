@@ -1,21 +1,44 @@
 .event-list-container {
     background: url('https://static.vecteezy.com/system/resources/thumbnails/001/896/850/small/multicolored-blurred-background-free-photo.jpg') center center/cover no-repeat;
+    /* background: #FFF1FA; */
+    /* background: #F7EBED; */
     height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
  
 
 }
 
+.input-group {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+
+.form-control {
+    margin-top: 0;
+    height: 100%; 
+    border-radius: 0.4vw;
+    border-color: black 1px;
+}
+
+
 
 .badge {
     border: none;
 }
 
+.badge:hover {
+    filter: brightness(0.8);
+    transition: 250ms;
+
+}
+ 
 .row {
     height:50%;
 }
-
+/*
 th, td {
     padding: 15px;
     text-align: left;
@@ -23,16 +46,26 @@ th, td {
 
 th {
     background-color: pink;
-}
+} */
 
 .list-group-item:hover {
-    background-color: rgb(255, 182, 193);
+    transition: all 0.3s ease-out;
+    filter: brightness(0.99);
+    background: lightgrey;
+    color: #242424;
+    transition: 250ms;
+
 }  
 
 .list-group-item.active {
     background-color: rgb(255, 182, 193);
     border-color:rgb(255, 182, 193);
     color: #212529;
+}
+
+.list-group {
+    border-radius: 12px;
+    font-family: 'Quicksand', sans-serif;
 }
 
 
@@ -79,3 +112,8 @@ th {
 /* .form-start {
     margin-top:5vw;
 } */
+
+.title-h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}

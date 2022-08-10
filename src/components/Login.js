@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import {Button} from "./Home/Button";
 
 import AuthService from "../services/auth.service";
 import "./loginSignup.css";
@@ -105,12 +106,24 @@ const Login = () => {
             </div>
 
             <div className="form-group">
-              <button className="btn btn-primary btn-block" disabled={loading}>
+              {/* <button className="btn btn-primary btn-block" disabled={loading}>
                 {loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
                 <span>Login</span>
-              </button>
+              </button> */}
+
+              <Button
+                  className='btns' 
+                  disabled= {loading}
+                  buttonStyle='btn--pink'
+                  buttonSize='btn--span'
+              >
+                {loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>Login</span>
+              </Button>
             </div>
 
             {message && (

@@ -4,6 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
+import {Button} from "./Home/Button";
 import "./loginSignup.css";
 const required = (value) => {
   if (!value) {
@@ -131,7 +132,13 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
+                    <Button
+                      className='btns' 
+                      buttonStyle='btn--pink'
+                      buttonSize='btn--span'
+                  >
+                    Sign Up
+                  </Button>
                 </div>
               </div>
             )}
